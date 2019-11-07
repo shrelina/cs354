@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)
+}
+
+h1 {
+  color: white;
+  background-color: black;
+  font-size:70px;
+  padding: 40px 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+a:hover{
+  background-color: #ddd;
+  }
+
+   a:active{
+background-color: blue;
+}
+
+h2 a{
+color: black;
+text-decoration: none;
+}
