@@ -1,0 +1,534 @@
+// class version 52.0 (52)
+// access flags 0x21
+public class JavaOrbitCalc {
+
+  // compiled from: JavaOrbitCalc.java
+  // access flags 0x1008
+  static synthetic INNERCLASS JavaOrbitCalc$1 null null
+  // access flags 0x4019
+  public final static enum INNERCLASS JavaDriver$dateOption JavaDriver dateOption
+
+  // access flags 0x2
+  private J seconds
+
+  // access flags 0x2
+  private D xPos
+
+  // access flags 0x2
+  private D yPos
+
+  // access flags 0x2
+  private D angle
+
+  // access flags 0x2
+  private D distanceFromSun
+
+  // access flags 0x1
+  public <init>(LJavaDriver$dateOption;IIII)V
+   L0
+    LINENUMBER 9 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 10 L1
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    ILOAD 3
+    ILOAD 4
+    ILOAD 5
+    INVOKESPECIAL JavaOrbitCalc.init_seconds (LJavaDriver$dateOption;IIII)V
+   L2
+    LINENUMBER 11 L2
+    ALOAD 0
+    INVOKESPECIAL JavaOrbitCalc.init_position ()V
+   L3
+    LINENUMBER 12 L3
+    RETURN
+   L4
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L4 0
+    LOCALVARIABLE option LJavaDriver$dateOption; L0 L4 1
+    LOCALVARIABLE days I L0 L4 2
+    LOCALVARIABLE hours I L0 L4 3
+    LOCALVARIABLE minutes I L0 L4 4
+    LOCALVARIABLE seconds I L0 L4 5
+    MAXSTACK = 6
+    MAXLOCALS = 6
+
+  // access flags 0x2
+  private init_seconds(LJavaDriver$dateOption;IIII)V
+   L0
+    LINENUMBER 16 L0
+    LDC 86400
+    ISTORE 6
+   L1
+    LINENUMBER 17 L1
+    SIPUSH 3600
+    ISTORE 7
+   L2
+    LINENUMBER 18 L2
+    BIPUSH 60
+    ISTORE 8
+   L3
+    LINENUMBER 20 L3
+    ICONST_0
+    ISTORE 9
+   L4
+    LINENUMBER 21 L4
+    ICONST_0
+    ISTORE 10
+   L5
+    LINENUMBER 22 L5
+    ALOAD 1
+    GETSTATIC JavaDriver$dateOption.PERIHELION : LJavaDriver$dateOption;
+    INVOKEVIRTUAL JavaDriver$dateOption.equals (Ljava/lang/Object;)Z
+    IFEQ L6
+   L7
+    LINENUMBER 24 L7
+    ICONST_4
+    ISTORE 9
+   L8
+    LINENUMBER 25 L8
+    ICONST_0
+    ISTORE 11
+   L9
+   FRAME FULL [JavaOrbitCalc JavaDriver$dateOption I I I I I I I I I I] []
+    ILOAD 11
+    ILOAD 9
+    IF_ICMPGE L10
+   L11
+    LINENUMBER 26 L11
+    ILOAD 10
+    LDC 86400
+    IADD
+    ISTORE 10
+   L12
+    LINENUMBER 25 L12
+    IINC 11 1
+    GOTO L9
+   L10
+    LINENUMBER 28 L10
+   FRAME CHOP 1
+    ICONST_0
+    ISTORE 11
+   L13
+   FRAME APPEND [I]
+    ILOAD 11
+    BIPUSH 23
+    IF_ICMPGE L14
+   L15
+    LINENUMBER 29 L15
+    IINC 10 3600
+   L16
+    LINENUMBER 28 L16
+    IINC 11 1
+    GOTO L13
+   L14
+    LINENUMBER 31 L14
+   FRAME CHOP 1
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD JavaOrbitCalc.seconds : J
+    GOTO L17
+   L6
+    LINENUMBER 33 L6
+   FRAME SAME
+    ALOAD 1
+    GETSTATIC JavaDriver$dateOption.APHELION : LJavaDriver$dateOption;
+    INVOKEVIRTUAL JavaDriver$dateOption.equals (Ljava/lang/Object;)Z
+    IFEQ L18
+   L19
+    LINENUMBER 35 L19
+    SIPUSH 185
+    ISTORE 9
+   L20
+    LINENUMBER 36 L20
+    ICONST_0
+    ISTORE 11
+   L21
+   FRAME APPEND [I]
+    ILOAD 11
+    ILOAD 9
+    IF_ICMPGE L22
+   L23
+    LINENUMBER 37 L23
+    ILOAD 10
+    LDC 86400
+    IADD
+    ISTORE 10
+   L24
+    LINENUMBER 36 L24
+    IINC 11 1
+    GOTO L21
+   L22
+    LINENUMBER 39 L22
+   FRAME CHOP 1
+    ICONST_0
+    ISTORE 11
+   L25
+   FRAME APPEND [I]
+    ILOAD 11
+    BIPUSH 18
+    IF_ICMPGE L26
+   L27
+    LINENUMBER 40 L27
+    IINC 10 3600
+   L28
+    LINENUMBER 39 L28
+    IINC 11 1
+    GOTO L25
+   L26
+    LINENUMBER 42 L26
+   FRAME CHOP 1
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD JavaOrbitCalc.seconds : J
+    GOTO L17
+   L18
+    LINENUMBER 45 L18
+   FRAME SAME
+    GETSTATIC JavaOrbitCalc$1.$SwitchMap$JavaDriver$dateOption : [I
+    ALOAD 1
+    INVOKEVIRTUAL JavaDriver$dateOption.ordinal ()I
+    IALOAD
+    TABLESWITCH
+      1: L29
+      2: L30
+      3: L31
+      4: L32
+      5: L33
+      6: L34
+      7: L35
+      8: L36
+      9: L37
+      10: L38
+      11: L39
+      12: L40
+      default: L41
+   L29
+    LINENUMBER 47 L29
+   FRAME SAME
+    ICONST_0
+    ISTORE 9
+   L42
+    LINENUMBER 48 L42
+    GOTO L41
+   L30
+    LINENUMBER 50 L30
+   FRAME SAME
+    BIPUSH 31
+    ISTORE 9
+   L43
+    LINENUMBER 51 L43
+    GOTO L41
+   L31
+    LINENUMBER 53 L31
+   FRAME SAME
+    BIPUSH 59
+    ISTORE 9
+   L44
+    LINENUMBER 54 L44
+    GOTO L41
+   L32
+    LINENUMBER 56 L32
+   FRAME SAME
+    BIPUSH 90
+    ISTORE 9
+   L45
+    LINENUMBER 57 L45
+    GOTO L41
+   L33
+    LINENUMBER 59 L33
+   FRAME SAME
+    BIPUSH 120
+    ISTORE 9
+   L46
+    LINENUMBER 60 L46
+    GOTO L41
+   L34
+    LINENUMBER 62 L34
+   FRAME SAME
+    SIPUSH 151
+    ISTORE 9
+   L47
+    LINENUMBER 63 L47
+    GOTO L41
+   L35
+    LINENUMBER 65 L35
+   FRAME SAME
+    SIPUSH 181
+    ISTORE 9
+   L48
+    LINENUMBER 66 L48
+    GOTO L41
+   L36
+    LINENUMBER 68 L36
+   FRAME SAME
+    SIPUSH 212
+    ISTORE 9
+   L49
+    LINENUMBER 69 L49
+    GOTO L41
+   L37
+    LINENUMBER 71 L37
+   FRAME SAME
+    SIPUSH 243
+    ISTORE 9
+   L50
+    LINENUMBER 72 L50
+    GOTO L41
+   L38
+    LINENUMBER 74 L38
+   FRAME SAME
+    SIPUSH 273
+    ISTORE 9
+   L51
+    LINENUMBER 75 L51
+    GOTO L41
+   L39
+    LINENUMBER 77 L39
+   FRAME SAME
+    SIPUSH 304
+    ISTORE 9
+   L52
+    LINENUMBER 78 L52
+    GOTO L41
+   L40
+    LINENUMBER 80 L40
+   FRAME SAME
+    SIPUSH 334
+    ISTORE 9
+   L41
+    LINENUMBER 83 L41
+   FRAME SAME
+    ILOAD 9
+    ILOAD 2
+    IADD
+    ISTORE 9
+   L53
+    LINENUMBER 84 L53
+    ICONST_0
+    ISTORE 11
+   L54
+   FRAME APPEND [I]
+    ILOAD 11
+    ILOAD 9
+    IF_ICMPGE L55
+   L56
+    LINENUMBER 85 L56
+    ILOAD 10
+    LDC 86400
+    IADD
+    ISTORE 10
+   L57
+    LINENUMBER 84 L57
+    IINC 11 1
+    GOTO L54
+   L55
+    LINENUMBER 87 L55
+   FRAME CHOP 1
+    ICONST_0
+    ISTORE 11
+   L58
+   FRAME APPEND [I]
+    ILOAD 11
+    ILOAD 3
+    IF_ICMPGE L59
+   L60
+    LINENUMBER 88 L60
+    IINC 10 3600
+   L61
+    LINENUMBER 87 L61
+    IINC 11 1
+    GOTO L58
+   L59
+    LINENUMBER 90 L59
+   FRAME CHOP 1
+    ICONST_0
+    ISTORE 11
+   L62
+   FRAME APPEND [I]
+    ILOAD 11
+    ILOAD 4
+    IF_ICMPGE L63
+   L64
+    LINENUMBER 91 L64
+    IINC 10 60
+   L65
+    LINENUMBER 90 L65
+    IINC 11 1
+    GOTO L62
+   L63
+    LINENUMBER 93 L63
+   FRAME CHOP 1
+    ILOAD 10
+    ILOAD 5
+    IADD
+    ISTORE 10
+   L66
+    LINENUMBER 94 L66
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD JavaOrbitCalc.seconds : J
+   L17
+    LINENUMBER 96 L17
+   FRAME SAME
+    RETURN
+   L67
+    LOCALVARIABLE i I L9 L10 11
+    LOCALVARIABLE i I L13 L14 11
+    LOCALVARIABLE i I L21 L22 11
+    LOCALVARIABLE i I L25 L26 11
+    LOCALVARIABLE i I L54 L55 11
+    LOCALVARIABLE i I L58 L59 11
+    LOCALVARIABLE i I L62 L63 11
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L67 0
+    LOCALVARIABLE option LJavaDriver$dateOption; L0 L67 1
+    LOCALVARIABLE days I L0 L67 2
+    LOCALVARIABLE hours I L0 L67 3
+    LOCALVARIABLE minutes I L0 L67 4
+    LOCALVARIABLE seconds I L0 L67 5
+    LOCALVARIABLE SECONDS_IN_DAY I L1 L67 6
+    LOCALVARIABLE SECONDS_IN_HOUR I L2 L67 7
+    LOCALVARIABLE SECONDS_IN_MINUTE I L3 L67 8
+    LOCALVARIABLE numDays I L4 L67 9
+    LOCALVARIABLE secondsCalc I L5 L67 10
+    MAXSTACK = 3
+    MAXLOCALS = 12
+
+  // access flags 0x2
+  private init_position()V
+   L0
+    LINENUMBER 99 L0
+    LDC 149577046
+    ISTORE 1
+   L1
+    LINENUMBER 100 L1
+    LDC 149597900
+    ISTORE 2
+   L2
+    LINENUMBER 101 L2
+    LDC 2499787
+    ISTORE 3
+   L3
+    LINENUMBER 102 L3
+    LDC 31622400
+    ISTORE 4
+   L4
+    LINENUMBER 104 L4
+    ALOAD 0
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.seconds : J
+    L2D
+    LDC 1.58112E7
+    INVOKESTATIC java/lang/Math.atan2 (DD)D
+    PUTFIELD JavaOrbitCalc.angle : D
+   L5
+    LINENUMBER 105 L5
+    ALOAD 0
+    LDC 1.495979E8
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.angle : D
+    INVOKESTATIC java/lang/Math.cos (D)D
+    DMUL
+    PUTFIELD JavaOrbitCalc.xPos : D
+   L6
+    LINENUMBER 106 L6
+    ALOAD 0
+    LDC 1.49577046E8
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.angle : D
+    INVOKESTATIC java/lang/Math.sin (D)D
+    DMUL
+    PUTFIELD JavaOrbitCalc.yPos : D
+   L7
+    LINENUMBER 109 L7
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.xPos : D
+    LDC 2499787.0
+    DSUB
+    LDC 2.0
+    INVOKESTATIC java/lang/Math.pow (DD)D
+    DSTORE 5
+   L8
+    LINENUMBER 110 L8
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.yPos : D
+    LDC 2.0
+    INVOKESTATIC java/lang/Math.pow (DD)D
+    DSTORE 7
+   L9
+    LINENUMBER 111 L9
+    ALOAD 0
+    DLOAD 5
+    DLOAD 7
+    DADD
+    INVOKESTATIC java/lang/Math.sqrt (D)D
+    PUTFIELD JavaOrbitCalc.distanceFromSun : D
+   L10
+    LINENUMBER 113 L10
+    RETURN
+   L11
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L11 0
+    LOCALVARIABLE SEMIMINOR_AXIS I L1 L11 1
+    LOCALVARIABLE SEMIMAJOR_AXIS I L2 L11 2
+    LOCALVARIABLE SUN_FOCUS_OFFSET I L3 L11 3
+    LOCALVARIABLE NUM_SECONDS_IN_YEAR I L4 L11 4
+    LOCALVARIABLE xSun D L8 L11 5
+    LOCALVARIABLE ySun D L9 L11 7
+    MAXSTACK = 5
+    MAXLOCALS = 9
+
+  // access flags 0x1
+  public getxPos()D
+   L0
+    LINENUMBER 116 L0
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.xPos : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public getyPos()D
+   L0
+    LINENUMBER 120 L0
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.yPos : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public getAngle()D
+   L0
+    LINENUMBER 124 L0
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.angle : D
+    LDC 180.0
+    DMUL
+    DRETURN
+   L1
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L1 0
+    MAXSTACK = 4
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public getDistanceFromSun()D
+   L0
+    LINENUMBER 128 L0
+    ALOAD 0
+    GETFIELD JavaOrbitCalc.distanceFromSun : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LJavaOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+}

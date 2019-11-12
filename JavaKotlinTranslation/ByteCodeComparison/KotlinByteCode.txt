@@ -1,0 +1,623 @@
+// ================KotlinOrbitCalc.class =================
+// class version 50.0 (50)
+// access flags 0x31
+public final class KotlinOrbitCalc {
+
+
+  // access flags 0x2
+  private J seconds
+
+  // access flags 0x2
+  private D xPos
+
+  // access flags 0x2
+  private D yPos
+
+  // access flags 0x2
+  private D angle
+
+  // access flags 0x2
+  private D distanceFromSun
+
+  // access flags 0x11
+  public final getDistanceFromSun()D
+   L0
+    LINENUMBER 9 L0
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.distanceFromSun : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x12
+  private final init_seconds(LKotlinDriver$dateOption;IIII)V
+    // annotable parameter count: 5 (visible)
+    // annotable parameter count: 5 (invisible)
+   L0
+    LINENUMBER 21 L0
+    LDC 86400
+    ISTORE 6
+   L1
+    LINENUMBER 22 L1
+    SIPUSH 3600
+    ISTORE 7
+   L2
+    LINENUMBER 23 L2
+    BIPUSH 60
+    ISTORE 8
+   L3
+    LINENUMBER 25 L3
+    ICONST_0
+    ISTORE 9
+   L4
+    LINENUMBER 26 L4
+    ICONST_0
+    ISTORE 10
+   L5
+    LINENUMBER 27 L5
+    ALOAD 1
+    GETSTATIC KotlinDriver$dateOption.PERIHELION : LKotlinDriver$dateOption;
+    IF_ACMPNE L6
+   L7
+    LINENUMBER 29 L7
+    ICONST_4
+    ISTORE 9
+   L8
+    LINENUMBER 30 L8
+    ICONST_0
+    ISTORE 11
+    ILOAD 9
+    ISTORE 12
+   L9
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGE L10
+   L11
+    LINENUMBER 31 L11
+    ILOAD 10
+    ILOAD 6
+    IADD
+    ISTORE 10
+   L12
+    LINENUMBER 30 L12
+    IINC 11 1
+   L13
+    GOTO L9
+   L10
+    LINENUMBER 33 L10
+    ICONST_0
+    ISTORE 11
+    BIPUSH 22
+    ISTORE 12
+   L14
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGT L15
+   L16
+    LINENUMBER 34 L16
+    ILOAD 10
+    ILOAD 7
+    IADD
+    ISTORE 10
+   L17
+    LINENUMBER 33 L17
+    IINC 11 1
+   L18
+    GOTO L14
+   L15
+    LINENUMBER 36 L15
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD KotlinOrbitCalc.seconds : J
+   L19
+    GOTO L20
+   L6
+    LINENUMBER 37 L6
+    ALOAD 1
+    GETSTATIC KotlinDriver$dateOption.APHELION : LKotlinDriver$dateOption;
+    IF_ACMPNE L21
+   L22
+    LINENUMBER 39 L22
+    SIPUSH 185
+    ISTORE 9
+   L23
+    LINENUMBER 40 L23
+    ICONST_0
+    ISTORE 11
+    ILOAD 9
+    ISTORE 12
+   L24
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGE L25
+   L26
+    LINENUMBER 41 L26
+    ILOAD 10
+    ILOAD 6
+    IADD
+    ISTORE 10
+   L27
+    LINENUMBER 40 L27
+    IINC 11 1
+   L28
+    GOTO L24
+   L25
+    LINENUMBER 43 L25
+    ICONST_0
+    ISTORE 11
+    BIPUSH 17
+    ISTORE 12
+   L29
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGT L30
+   L31
+    LINENUMBER 44 L31
+    ILOAD 10
+    ILOAD 7
+    IADD
+    ISTORE 10
+   L32
+    LINENUMBER 43 L32
+    IINC 11 1
+   L33
+    GOTO L29
+   L30
+    LINENUMBER 46 L30
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD KotlinOrbitCalc.seconds : J
+   L34
+    GOTO L20
+   L21
+    LINENUMBER 48 L21
+    ALOAD 1
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    SWAP
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    IALOAD
+   L35
+    TABLESWITCH
+      1: L36
+      2: L37
+      3: L38
+      4: L39
+      5: L40
+      6: L41
+      7: L42
+      8: L43
+      9: L44
+      10: L45
+      11: L46
+      12: L47
+      default: L48
+   L36
+    LINENUMBER 49 L36
+    ICONST_0
+    ISTORE 9
+    GOTO L48
+   L37
+    LINENUMBER 50 L37
+    BIPUSH 31
+    ISTORE 9
+    GOTO L48
+   L38
+    LINENUMBER 51 L38
+    BIPUSH 59
+    ISTORE 9
+    GOTO L48
+   L39
+    LINENUMBER 52 L39
+    BIPUSH 90
+    ISTORE 9
+    GOTO L48
+   L40
+    LINENUMBER 53 L40
+    BIPUSH 120
+    ISTORE 9
+    GOTO L48
+   L41
+    LINENUMBER 54 L41
+    SIPUSH 151
+    ISTORE 9
+    GOTO L48
+   L42
+    LINENUMBER 55 L42
+    SIPUSH 181
+    ISTORE 9
+    GOTO L48
+   L43
+    LINENUMBER 56 L43
+    SIPUSH 212
+    ISTORE 9
+    GOTO L48
+   L44
+    LINENUMBER 57 L44
+    SIPUSH 243
+    ISTORE 9
+    GOTO L48
+   L45
+    LINENUMBER 58 L45
+    SIPUSH 273
+    ISTORE 9
+    GOTO L48
+   L46
+    LINENUMBER 59 L46
+    SIPUSH 304
+    ISTORE 9
+    GOTO L48
+   L47
+    LINENUMBER 60 L47
+    SIPUSH 334
+    ISTORE 9
+   L49
+    LINENUMBER 61 L49
+   L48
+    LINENUMBER 62 L48
+    ILOAD 9
+    ILOAD 2
+    IADD
+    ISTORE 9
+   L50
+    LINENUMBER 63 L50
+    ICONST_0
+    ISTORE 11
+    ILOAD 9
+    ISTORE 12
+   L51
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGE L52
+   L53
+    LINENUMBER 64 L53
+    ILOAD 10
+    ILOAD 6
+    IADD
+    ISTORE 10
+   L54
+    LINENUMBER 63 L54
+    IINC 11 1
+   L55
+    GOTO L51
+   L52
+    LINENUMBER 66 L52
+    ICONST_0
+    ISTORE 11
+    ILOAD 3
+    ISTORE 12
+   L56
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGE L57
+   L58
+    LINENUMBER 67 L58
+    ILOAD 10
+    ILOAD 7
+    IADD
+    ISTORE 10
+   L59
+    LINENUMBER 66 L59
+    IINC 11 1
+   L60
+    GOTO L56
+   L57
+    LINENUMBER 69 L57
+    ICONST_0
+    ISTORE 11
+    ILOAD 4
+    ISTORE 12
+   L61
+    ILOAD 11
+    ILOAD 12
+    IF_ICMPGE L62
+   L63
+    LINENUMBER 70 L63
+    ILOAD 10
+    ILOAD 8
+    IADD
+    ISTORE 10
+   L64
+    LINENUMBER 69 L64
+    IINC 11 1
+   L65
+    GOTO L61
+   L62
+    LINENUMBER 72 L62
+    ILOAD 10
+    ILOAD 5
+    IADD
+    ISTORE 10
+   L66
+    LINENUMBER 73 L66
+    ALOAD 0
+    ILOAD 10
+    I2L
+    PUTFIELD KotlinOrbitCalc.seconds : J
+   L67
+    LINENUMBER 74 L67
+   L20
+    LINENUMBER 75 L20
+    RETURN
+   L68
+    LOCALVARIABLE i I L11 L13 11
+    LOCALVARIABLE i I L16 L18 11
+    LOCALVARIABLE i I L26 L28 11
+    LOCALVARIABLE i I L31 L33 11
+    LOCALVARIABLE i I L53 L55 11
+    LOCALVARIABLE i I L58 L60 11
+    LOCALVARIABLE i I L63 L65 11
+    LOCALVARIABLE secondsCalc I L5 L68 10
+    LOCALVARIABLE numDays I L4 L68 9
+    LOCALVARIABLE SECONDS_IN_MINUTE I L3 L68 8
+    LOCALVARIABLE SECONDS_IN_HOUR I L2 L68 7
+    LOCALVARIABLE SECONDS_IN_DAY I L1 L68 6
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L68 0
+    LOCALVARIABLE option LKotlinDriver$dateOption; L0 L68 1
+    LOCALVARIABLE days I L0 L68 2
+    LOCALVARIABLE hours I L0 L68 3
+    LOCALVARIABLE minutes I L0 L68 4
+    LOCALVARIABLE seconds I L0 L68 5
+    MAXSTACK = 3
+    MAXLOCALS = 13
+
+  // access flags 0x12
+  private final init_position()V
+   L0
+    LINENUMBER 78 L0
+    LDC 149577046
+    ISTORE 1
+   L1
+    LINENUMBER 79 L1
+    LDC 149597900
+    ISTORE 2
+   L2
+    LINENUMBER 80 L2
+    LDC 2499787
+    ISTORE 3
+   L3
+    LINENUMBER 81 L3
+    LDC 31622400
+    ISTORE 4
+   L4
+    LINENUMBER 83 L4
+    ALOAD 0
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.seconds : J
+    L2D
+    ILOAD 4
+    I2D
+    LDC 2.0
+    DDIV
+    INVOKESTATIC java/lang/Math.atan2 (DD)D
+    PUTFIELD KotlinOrbitCalc.angle : D
+   L5
+    LINENUMBER 84 L5
+    ALOAD 0
+    ILOAD 2
+    I2D
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.angle : D
+    INVOKESTATIC java/lang/Math.cos (D)D
+    DMUL
+    PUTFIELD KotlinOrbitCalc.xPos : D
+   L6
+    LINENUMBER 85 L6
+    ALOAD 0
+    ILOAD 1
+    I2D
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.angle : D
+    INVOKESTATIC java/lang/Math.sin (D)D
+    DMUL
+    PUTFIELD KotlinOrbitCalc.yPos : D
+   L7
+    LINENUMBER 88 L7
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.xPos : D
+    ILOAD 3
+    I2D
+    DSUB
+    LDC 2.0
+    INVOKESTATIC java/lang/Math.pow (DD)D
+    DSTORE 5
+   L8
+    LINENUMBER 89 L8
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.yPos : D
+    LDC 2.0
+    INVOKESTATIC java/lang/Math.pow (DD)D
+    DSTORE 7
+   L9
+    LINENUMBER 90 L9
+    ALOAD 0
+    DLOAD 5
+    DLOAD 7
+    DADD
+    INVOKESTATIC java/lang/Math.sqrt (D)D
+    PUTFIELD KotlinOrbitCalc.distanceFromSun : D
+   L10
+    LINENUMBER 92 L10
+    RETURN
+   L11
+    LOCALVARIABLE ySun D L9 L11 7
+    LOCALVARIABLE xSun D L8 L11 5
+    LOCALVARIABLE NUM_SECONDS_IN_YEAR I L4 L11 4
+    LOCALVARIABLE SUN_FOCUS_OFFSET I L3 L11 3
+    LOCALVARIABLE SEMIMAJOR_AXIS I L2 L11 2
+    LOCALVARIABLE SEMIMINOR_AXIS I L1 L11 1
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L11 0
+    MAXSTACK = 7
+    MAXLOCALS = 9
+
+  // access flags 0x11
+  public final getxPos()D
+   L0
+    LINENUMBER 95 L0
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.xPos : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x11
+  public final getyPos()D
+   L0
+    LINENUMBER 99 L0
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.yPos : D
+    DRETURN
+   L1
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L1 0
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x11
+  public final getAngle()D
+   L0
+    LINENUMBER 103 L0
+    ALOAD 0
+    GETFIELD KotlinOrbitCalc.angle : D
+    SIPUSH 180
+    I2D
+    DMUL
+    DRETURN
+   L1
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L1 0
+    MAXSTACK = 4
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public <init>(LKotlinDriver$dateOption;IIII)V
+    // annotable parameter count: 5 (visible)
+    // annotable parameter count: 5 (invisible)
+    @Lorg/jetbrains/annotations/NotNull;() // invisible, parameter 0
+   L0
+    ALOAD 1
+    LDC "option"
+    INVOKESTATIC kotlin/jvm/internal/Intrinsics.checkParameterIsNotNull (Ljava/lang/Object;Ljava/lang/String;)V
+   L1
+    LINENUMBER 1 L1
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L2
+    LINENUMBER 13 L2
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    ILOAD 3
+    ILOAD 4
+    ILOAD 5
+    INVOKESPECIAL KotlinOrbitCalc.init_seconds (LKotlinDriver$dateOption;IIII)V
+   L3
+    LINENUMBER 14 L3
+    ALOAD 0
+    INVOKESPECIAL KotlinOrbitCalc.init_position ()V
+   L4
+    RETURN
+   L5
+    LOCALVARIABLE this LKotlinOrbitCalc; L0 L5 0
+    LOCALVARIABLE option LKotlinDriver$dateOption; L0 L5 1
+    LOCALVARIABLE days I L0 L5 2
+    LOCALVARIABLE hours I L0 L5 3
+    LOCALVARIABLE minutes I L0 L5 4
+    LOCALVARIABLE seconds I L0 L5 5
+    MAXSTACK = 6
+    MAXLOCALS = 6
+
+  @Lkotlin/Metadata;(mv={1, 1, 13}, bv={1, 0, 3}, k=1, d1={"\u00000\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0008\n\u0002\u0008\u0005\n\u0002\u0010\u0006\n\u0002\u0008\u0004\n\u0002\u0010\u0009\n\u0002\u0008\u0006\n\u0002\u0010\u0002\n\u0002\u0008\u0002\u0018\u00002\u00020\u0001B-\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0005\u0012\u0006\u0010\u0007\u001a\u00020\u0005\u0012\u0006\u0010\u0008\u001a\u00020\u0005\u00a2\u0006\u0002\u0010\u0009J\u0006\u0010\u0013\u001a\u00020\u000bJ\u0006\u0010\u0014\u001a\u00020\u000bJ\u0006\u0010\u0015\u001a\u00020\u000bJ\u0008\u0010\u0016\u001a\u00020\u0017H\u0002J0\u0010\u0018\u001a\u00020\u00172\u0006\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u00052\u0006\u0010\u0006\u001a\u00020\u00052\u0006\u0010\u0007\u001a\u00020\u00052\u0006\u0010\u0008\u001a\u00020\u0005H\u0002R\u000e\u0010\n\u001a\u00020\u000bX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u001e\u0010\r\u001a\u00020\u000b2\u0006\u0010\u000c\u001a\u00020\u000b@BX\u0086\u000e\u00a2\u0006\u0008\n\u0000\u001a\u0004\u0008\u000e\u0010\u000fR\u000e\u0010\u0008\u001a\u00020\u0010X\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0011\u001a\u00020\u000bX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0012\u001a\u00020\u000bX\u0082\u000e\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0019"}, d2={"LKotlinOrbitCalc;", "", "option", "LKotlinDriver$dateOption;", "days", "", "hours", "minutes", "seconds", "(LKotlinDriver$dateOption;IIII)V", "angle", "", "<set-?>", "distanceFromSun", "getDistanceFromSun", "()D", "", "xPos", "yPos", "getAngle", "getxPos", "getyPos", "init_position", "", "init_seconds", "cs354"})
+  // compiled from: KotlinOrbitCalc.kt
+}
+
+
+// ================KotlinOrbitCalc$WhenMappings.class =================
+// class version 50.0 (50)
+// access flags 0x1031
+public final synthetic class KotlinOrbitCalc$WhenMappings {
+
+
+  // access flags 0x1019
+  public final static synthetic [I $EnumSwitchMapping$0
+
+  // access flags 0x1008
+  static synthetic <clinit>()V
+    INVOKESTATIC KotlinDriver$dateOption.values ()[LKotlinDriver$dateOption;
+    ARRAYLENGTH
+    NEWARRAY T_INT
+    PUTSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.JAN : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    ICONST_1
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.FEB : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    ICONST_2
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.MAR : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    ICONST_3
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.APR : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    ICONST_4
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.MAY : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    ICONST_5
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.JUN : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 6
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.JUL : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 7
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.AUG : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 8
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.SEP : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 9
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.OCT : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 10
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.NOV : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 11
+    IASTORE
+    GETSTATIC KotlinOrbitCalc$WhenMappings.$EnumSwitchMapping$0 : [I
+    GETSTATIC KotlinDriver$dateOption.DEC : LKotlinDriver$dateOption;
+    INVOKEVIRTUAL KotlinDriver$dateOption.ordinal ()I
+    BIPUSH 12
+    IASTORE
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 0
+
+  @Lkotlin/Metadata;(mv={1, 1, 13}, bv={1, 0, 3}, k=3)
+}
+
+
+// ================META-INF/cs354.kotlin_module =================
+         
+

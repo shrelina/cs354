@@ -1,0 +1,89 @@
+// KotlinOrbitCalc.java
+import KotlinDriver.dateOption;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+
+@Metadata(
+   mv = {1, 1, 13},
+   bv = {1, 0, 3},
+   k = 1,
+   d1 = {"\u00000\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0005\n\u0002\u0010\u0006\n\u0002\b\u0004\n\u0002\u0010\t\n\u0002\b\u0006\n\u0002\u0010\u0002\n\u0002\b\u0002\u0018\u00002\u00020\u0001B-\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0005\u0012\u0006\u0010\u0007\u001a\u00020\u0005\u0012\u0006\u0010\b\u001a\u00020\u0005¢\u0006\u0002\u0010\tJ\u0006\u0010\u0013\u001a\u00020\u000bJ\u0006\u0010\u0014\u001a\u00020\u000bJ\u0006\u0010\u0015\u001a\u00020\u000bJ\b\u0010\u0016\u001a\u00020\u0017H\u0002J0\u0010\u0018\u001a\u00020\u00172\u0006\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u00052\u0006\u0010\u0006\u001a\u00020\u00052\u0006\u0010\u0007\u001a\u00020\u00052\u0006\u0010\b\u001a\u00020\u0005H\u0002R\u000e\u0010\n\u001a\u00020\u000bX\u0082\u000e¢\u0006\u0002\n\u0000R\u001e\u0010\r\u001a\u00020\u000b2\u0006\u0010\f\u001a\u00020\u000b@BX\u0086\u000e¢\u0006\b\n\u0000\u001a\u0004\b\u000e\u0010\u000fR\u000e\u0010\b\u001a\u00020\u0010X\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\u0011\u001a\u00020\u000bX\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\u0012\u001a\u00020\u000bX\u0082\u000e¢\u0006\u0002\n\u0000¨\u0006\u0019"},
+   d2 = {"LKotlinOrbitCalc;", "", "option", "LKotlinDriver$dateOption;", "days", "", "hours", "minutes", "seconds", "(LKotlinDriver$dateOption;IIII)V", "angle", "", "<set-?>", "distanceFromSun", "getDistanceFromSun", "()D", "", "xPos", "yPos", "getAngle", "getxPos", "getyPos", "init_position", "", "init_seconds", "cs354"}
+)
+public final class KotlinOrbitCalc {
+   private long seconds;
+   private double xPos;
+   private double yPos;
+   private double angle;
+   private double distanceFromSun;
+
+   public final double getDistanceFromSun() {
+      return this.distanceFromSun;
+   }
+
+   private final void init_seconds(dateOption option, int days, int hours, int minutes, int seconds) {
+      // $FF: Couldn't be decompiled
+   }
+
+   private final void init_position() {
+      int SEMIMINOR_AXIS = 149577046;
+      int SEMIMAJOR_AXIS = 149597900;
+      int SUN_FOCUS_OFFSET = 2499787;
+      int NUM_SECONDS_IN_YEAR = 31622400;
+      this.angle = Math.atan2((double)this.seconds, (double)NUM_SECONDS_IN_YEAR / 2.0D);
+      this.xPos = (double)SEMIMAJOR_AXIS * Math.cos(this.angle);
+      this.yPos = (double)SEMIMINOR_AXIS * Math.sin(this.angle);
+      double xSun = Math.pow(this.xPos - (double)SUN_FOCUS_OFFSET, 2.0D);
+      double ySun = Math.pow(this.yPos, 2.0D);
+      this.distanceFromSun = Math.sqrt(xSun + ySun);
+   }
+
+   public final double getxPos() {
+      return this.xPos;
+   }
+
+   public final double getyPos() {
+      return this.yPos;
+   }
+
+   public final double getAngle() {
+      return this.angle * (double)180;
+   }
+
+   public KotlinOrbitCalc(@NotNull dateOption option, int days, int hours, int minutes, int seconds) {
+      Intrinsics.checkParameterIsNotNull(option, "option");
+      super();
+      this.init_seconds(option, days, hours, minutes, seconds);
+      this.init_position();
+   }
+}
+// KotlinOrbitCalc$WhenMappings.java
+import KotlinDriver.dateOption;
+import kotlin.Metadata;
+
+// $FF: synthetic class
+@Metadata(
+   mv = {1, 1, 13},
+   bv = {1, 0, 3},
+   k = 3
+)
+public final class KotlinOrbitCalc$WhenMappings {
+   // $FF: synthetic field
+   public static final int[] $EnumSwitchMapping$0 = new int[dateOption.values().length];
+
+   static {
+      $EnumSwitchMapping$0[dateOption.JAN.ordinal()] = 1;
+      $EnumSwitchMapping$0[dateOption.FEB.ordinal()] = 2;
+      $EnumSwitchMapping$0[dateOption.MAR.ordinal()] = 3;
+      $EnumSwitchMapping$0[dateOption.APR.ordinal()] = 4;
+      $EnumSwitchMapping$0[dateOption.MAY.ordinal()] = 5;
+      $EnumSwitchMapping$0[dateOption.JUN.ordinal()] = 6;
+      $EnumSwitchMapping$0[dateOption.JUL.ordinal()] = 7;
+      $EnumSwitchMapping$0[dateOption.AUG.ordinal()] = 8;
+      $EnumSwitchMapping$0[dateOption.SEP.ordinal()] = 9;
+      $EnumSwitchMapping$0[dateOption.OCT.ordinal()] = 10;
+      $EnumSwitchMapping$0[dateOption.NOV.ordinal()] = 11;
+      $EnumSwitchMapping$0[dateOption.DEC.ordinal()] = 12;
+   }
+}
