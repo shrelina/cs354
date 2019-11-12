@@ -8,8 +8,7 @@ public class JavaDriver {
         JAN, FEB, MAR, APR,
         MAY, JUN, JUL, AUG,
         SEP, OCT, NOV, DEC,
-        INVALID,
-        QUIT
+        INVALID, QUIT
     }
 
     private static dateOption getUserDateOption(String input){

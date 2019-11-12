@@ -3,10 +3,10 @@ class KotlinOrbitCalc(
     minutes: Int, seconds: Int
 ) {
     private var seconds: Long = 0
-    private var xPos: Double = 0.toDouble()
-    private var yPos: Double = 0.toDouble()
-    private var angle: Double = 0.toDouble()
-    var distanceFromSun: Double = 0.toDouble()
+    private var xPos: Double = 0.0
+    private var yPos: Double = 0.0
+    private var angle: Double = 0.0
+    var distanceFromSun: Double = 0.0
         private set
 
     init {
