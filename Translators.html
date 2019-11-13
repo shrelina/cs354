@@ -3,6 +3,26 @@
   <link rel ="stylesheet" href ="linkDesign.css">
   </head>
   <body>
+  The official documentation for Kotlin recommends installing
+  IntelliJ, which bundles the Kotlin compiler with it.  There is only
+  one Kotlin compiler (as far as we know), made by JetBrains.
 
+  To compile and run our programs, simply install IntelliJ.  If you
+  do not already have a JVM installed, IntelliJ will guide you through
+  the steps to install it.  Depending on which version of the JVM is installed,
+  you may have to set the target bytecode.  Kotlin will compile to Java bytecode
+  version 6 and 8.  We will be using bytecode version 8 for our projects.  However,
+  in our testing, we have learned that our sample programs will work for later versions
+  of Java, as they do not make use of the added functionality of those versions.  We
+  set our target bytecode to version 10.
+
+  To set the target bytecode in IntelliJ:
+  Open the File Tab -> Project Structure ->
+  Project Settings -> Project -> Project Language Level ->
+  Use the drop-down menu to set the language level to at most 10
+  (recommended 8 or 10).
+
+  Installing and using the Kotlin compiler can also be done from the command line:
+  https://kotlinlang.org/docs/tutorials/command-line.html
   </body>
 </html>
