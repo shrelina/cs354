@@ -1,0 +1,6 @@
+- setNext()/setPrev() changed to setNextNode()/setPreviousNode() due to
+a "platform declaration clash"
+- primary constructor can literally just be parameters at the top of the class
+- "?" next to an object denotes that the object can be null.  Kotlin is super
+big on null-safety (null pointer exceptions are Java's problem like pointer/memory allocation
+is C's big problem)
