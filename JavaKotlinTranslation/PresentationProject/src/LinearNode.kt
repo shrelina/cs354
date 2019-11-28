@@ -1,5 +1,3 @@
-
-
 class LinearNode<E> constructor(var element: E?, var next: LinearNode<E>?, var previous: LinearNode<E>?) {
     public fun setNextNode(newNextNode: LinearNode<E>?){
         next = newNextNode
