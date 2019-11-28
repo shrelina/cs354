@@ -6,3 +6,6 @@ big on null-safety (null pointer exceptions are Java's problem like pointer/memo
 is C's big problem)
 - ConcurrentModificationException() is imported automatically in to any JVM project (along
 with many others that you would normally have to import in a Java class)
+- Kotlin has primitives.  However, they are capitalized (Int, Boolean, Double, Char, etc.)
+- If an interface insists on overriding an inherited method (eg. toString(), which every
+class inherits), then the override keyword must be explicitly used to express such
