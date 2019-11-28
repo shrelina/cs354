@@ -4,3 +4,5 @@ a "platform declaration clash"
 - "?" next to an object denotes that the object can be null.  Kotlin is super
 big on null-safety (null pointer exceptions are Java's problem like pointer/memory allocation
 is C's big problem)
+- ConcurrentModificationException() is imported automatically in to any JVM project (along
+with many others that you would normally have to import in a Java class)
