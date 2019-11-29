@@ -1,6 +1,16 @@
-class IUDoubleLinkedList<T> : IndexedUnsortedList<T>{
+import javax.sound.sampled.Line
+
+class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?, val size: Int = 0,
+                             val modCount: Int = 0) : IndexedUnsortedList<T>{
     override fun addToFront(element: T) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var newHead = LinearNode<T>(null, null, null)
+        newHead.setNodeElement(element)
+        newHead.setNextNode(head)
+        head = newHead
+
+        if (){
+
+        }
     }
 
     override fun addToRear(element: T) {
