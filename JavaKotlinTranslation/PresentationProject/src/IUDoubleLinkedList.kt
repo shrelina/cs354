@@ -1,5 +1,6 @@
 import java.lang.IndexOutOfBoundsException
 import java.lang.StringBuilder
+import java.util.*
 
 class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?, var size: Int = 0,
                              var modCount: Int = 0) : IndexedUnsortedList<T>{
@@ -351,7 +352,19 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         }
 
         override fun hasPrevious(): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            checkModCount()
+
+            if (nextNode == null){
+                var current = head
+                for (i in 0..nextIndex){
+                    current = current?.getNextNode()
+                }
+
+                return current != null
+            }
+            else{
+                return nextNode?.getPreviousNode() != null
+            }
         }
 
         override fun next(): T? {
