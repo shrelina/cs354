@@ -35,3 +35,13 @@ can instantiate new objects, but it _cannot_ call their private methods,
 even if the main function is in the same class file as said method.
 - arrays that have set values are initialized almost identically to that in Java
 (with the exception of type, which Kotlin always figures out on its own).  Same with strings
+- for-loop shenanigans:
+for (i in 0..number) is logically equivalent to for (int i = 0; i <= number; i++)
+for (i in 0 until number) is logically equivalent to for (int i = 0; i < number; i++)
+- *** AMBIGUITY ISSUES REGARDING REMOVE() ***
+- Kotlin iterators and listIterators do not have the ability to
+remove or set values.  Hmmm...
+Found why: Kotlin distinguishes between two iterators:
+mutable and immutable iterators.  Iterators are immutable,
+while MutableIterators are - as the name implies - able to be
+modified while iterating.
