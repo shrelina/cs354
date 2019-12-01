@@ -221,7 +221,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         return current?.getNodeElement()
     }
 
-    override fun set(index: Int, element: T) {
+    override fun set(index: Int, element: T?) {
         if (index < 0 || index >= size){
             throw IndexOutOfBoundsException()
         }
@@ -311,21 +311,21 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         return sb.toString()
     }
 
-    override fun iterator(): Iterator<T> {
+    override fun iterator(): MutableIterator<T> {
         @Suppress("UNCHECKED_CAST")
-        return listIterator(0) as Iterator<T>
+        return listIterator(0) as MutableIterator<T>
     }
 
-    override fun listIterator(): ListIterator<T?> {
+    override fun listIterator(): MutableListIterator<T?> {
         return listIterator(0)
     }
-    override fun listIterator(startingIndex: Int): ListIterator<T?> {
+    override fun listIterator(startingIndex: Int): MutableListIterator<T?> {
         return DLLIterator(startingIndex)
     }
 
 
 
-    private inner class DLLIterator(startingIndex: Int) : ListIterator<T?>{
+    private inner class DLLIterator(startingIndex: Int) : MutableListIterator<T?>{
         private var nextNode: LinearNode<T>? = head
         private var lastReturnedNode: LinearNode<T>? = null
         private var iterModCount: Int = modCount
@@ -339,7 +339,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
                 throw IndexOutOfBoundsException()
             }
 
-            for (i in 0..startingIndex){
+            for (i in 0 until startingIndex){
                 nextNode = nextNode?.getNextNode()
                 nextIndex++
             }
@@ -424,6 +424,103 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
             checkModCount()
 
             return nextIndex - 1
+        }
+
+        override fun add(element: T?) {
+            checkModCount()
+
+            val newNode = LinearNode<T>(null, null, null)
+            newNode.setNodeElement(element)
+
+            if (size == 0){
+                head = newNode
+                tail = newNode
+            }
+            else {
+                if (nextNode == null) {
+                    var current = head
+                    for (i in 0 until nextIndex - 1) {
+                        current = current!!.getNextNode()
+                    }
+                    newNode.setPreviousNode(current)
+                } else {
+                    newNode.setPreviousNode(nextNode!!.getPreviousNode())
+                    newNode.setNextNode(nextNode)
+                }
+
+
+                if (newNode.getPreviousNode() == null) {
+                    head = newNode
+                } else {
+                    newNode.getPreviousNode()!!.setNextNode(newNode)
+                }
+
+                if (newNode.getNextNode() == null) {
+                    tail = newNode
+                } else {
+                    nextNode!!.setPreviousNode(newNode)
+                }
+            }
+
+            size++
+            nextIndex++
+            modCount++
+            iterModCount++
+            canRemove = false
+            canSet = false
+        }
+
+        override fun remove() {
+            checkModCount()
+            if(!canRemove){
+                throw IllegalStateException()
+            }
+            if (size() == 1){
+                head = null
+                tail = null
+            }
+            else if(lastReturnedNode == head){
+                lastReturnedNode!!.getNextNode()!!.setPreviousNode(null)
+                head = lastReturnedNode!!.getNextNode()
+                nextNode = head
+            }
+            else if (lastReturnedNode == tail){
+                lastReturnedNode!!.getPreviousNode()!!.setNextNode(null)
+                tail = lastReturnedNode!!.getPreviousNode()
+                nextNode = null
+            }
+            else{
+                lastReturnedNode!!.getNextNode()!!.setPreviousNode(lastReturnedNode!!.getPreviousNode())
+                lastReturnedNode!!.getPreviousNode()!!.setNextNode(lastReturnedNode!!.getNextNode())
+                nextNode = lastReturnedNode?.getNextNode()
+            }
+
+            lastReturnedNode = null
+            canRemove = false
+            canSet = false
+            size--
+            if (forwardMovement){
+                nextIndex--
+            }
+            modCount++
+            iterModCount++
+        }
+
+        override fun set(element: T?) {
+            checkModCount()
+
+            if (!canSet){
+                throw IllegalStateException()
+            }
+
+            if (lastReturnedNode == null){
+                this@IUDoubleLinkedList.set(nextIndex, element)
+            }
+            else{
+                lastReturnedNode!!.setNodeElement(element)
+                modCount++
+            }
+            iterModCount++
         }
 
         private fun checkModCount(){
