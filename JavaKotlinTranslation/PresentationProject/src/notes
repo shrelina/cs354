@@ -1,0 +1,37 @@
+- setNext()/setPrev() changed to setNextNode()/setPreviousNode() due to
+a "platform declaration clash"
+- primary constructor can literally just be parameters at the top of the class
+- "?" next to an object denotes that the object can be null.  Kotlin is super
+big on null-safety (null pointer exceptions are Java's problem like pointer/memory allocation
+is C's big problem)
+- ConcurrentModificationException() is imported automatically in to any JVM project (along
+with many others that you would normally have to import in a Java class)
+- Kotlin has primitives.  However, they are capitalized (Int, Boolean, Double, Char, etc.)
+- Kotlin primitives are objects.  Int does new Integer(value), for instance.  Everything is an object,
+(kinda like SmallTalk)
+- If an interface insists on overriding an inherited method (eg. toString(), which every
+class inherits), then the override keyword must be explicitly used to express such
+- "val" keyword is to set constants.  Use the "var" keyword even if you're using numbers (kind
+of unintuitive)
+- "?:", called the Elvis operator (apparently this is in many programming languages; first
+time I've seen it) is a binary operator.  Basically saying:
+"a ?: b" is the same as
+if (a == null){
+    return b
+}
+else{
+    return a
+}
+- if you null check (object?.methodCall()) an object and make a string of method calls where
+you end up using the same object again, the Kotlin compiler is smart enough to know that you
+do not need to check the object twice for a possible null object.  eg.:
+"current?.getNextNode()?.setPreviousNode(current.getPreviousNode())"
+the object current is checked for null at the beginning, but not later in the right-most
+set of parentheses.
+- switch statements can be used to initialize member variables
+- the "driver" is the class file that contains the main function.  However,
+the main function exists outside of any class.  Therefor, the main function
+can instantiate new objects, but it _cannot_ call their private methods,
+even if the main function is in the same class file as said method.
+- arrays that have set values are initialized almost identically to that in Java
+(with the exception of type, which Kotlin always figures out on its own).  Same with strings
