@@ -21,6 +21,12 @@ class ListTester{
         ValidString
     }
 
+    private enum class IterAction{
+        Next, HasNext, Previous, HasPrevious,
+        NextIndex, PreviousIndex, Add, Remove,
+        Set
+    }
+
     // private static final varName
     private companion object {
         val LIST_TO_USE = ListToUse.DoubleLinkedList
@@ -75,16 +81,40 @@ class ListTester{
             printTest(scenarioName + "_testAddToRear", testAddToRear(scenario, ELEMENT_X, Result.NoException))
             printTest(scenarioName + "_testAddAfterX", testAddAfter(scenario, ELEMENT_X, ELEMENT_Z, Result.NoSuchElement))
             printTest(scenarioName + "_testAddAtIndexNeg1", testAddAtIndex(scenario, -1, ELEMENT_X, Result.IndexOutOfBounds))
-            printTest(scenarioName + "_testAddAtIndex0", testAddAtIndex(scenario, 0, ELEMENT_X, Result.NoException));
-            printTest(scenarioName + "_testAddAtIndex1", testAddAtIndex(scenario, 1, ELEMENT_X, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testSetNeg1", testSet(scenario, -1, ELEMENT_X, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testSet0", testSet(scenario, 0, ELEMENT_X, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testAddX", testAdd(scenario, ELEMENT_X, Result.NoException));
-            printTest(scenarioName + "_testGetNeg1", testGet(scenario, -1, null, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testGet0", testGet(scenario, 0, null, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testIndexOfX", testIndexOf(scenario, ELEMENT_X, -1));
-            printTest(scenarioName + "_testRemoveAtNeg1", testRemoveAt(scenario, -1, null, Result.IndexOutOfBounds));
-            printTest(scenarioName + "_testRemoveAt0", testRemoveAt(scenario, 0, null, Result.IndexOutOfBounds));
+            printTest(scenarioName + "_testAddAtIndex0", testAddAtIndex(scenario, 0, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testAddAtIndex1", testAddAtIndex(scenario, 1, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testSetNeg1", testSet(scenario, -1, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testSet0", testSet(scenario, 0, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testAddX", testAdd(scenario, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testGetNeg1", testGet(scenario, -1, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testGet0", testGet(scenario, 0, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testIndexOfX", testIndexOf(scenario, ELEMENT_X, -1))
+            printTest(scenarioName + "_testRemoveAtNeg1", testRemoveAt(scenario, -1, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testRemoveAt0", testRemoveAt(scenario, 0, null, Result.IndexOutOfBounds))
+
+            // Iterator
+            printTest(scenarioName + "_testIter", testIter(scenario, Result.NoException))
+            printTest(scenarioName + "_testIterHasNext", testIterHasNext(scenario, ArrayList<ListTester.IterAction>(), Result.False))
+            printTest(scenarioName + "_testIterNext", testIterNext(scenario, ArrayList<ListTester.IterAction>(), null, Result.NoSuchElement))
+            printTest(scenarioName + "_testIterRemove", testIterRemove(scenario, ArrayList<ListTester.IterAction>(), Result.IllegalState))
+
+            //ListIterator
+            printTest(scenarioName + "_testListIter", testListIter(scenario, null, ArrayList<ListTester.IterAction>(), Result.NoException));
+            printTest(scenarioName + "_testListIterNeg1", testListIter(scenario, -1, ArrayList<ListTester.IterAction>(), Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testListIter0", testListIter(scenario, 0, ArrayList<ListTester.IterAction>(), Result.NoException))
+            printTest(scenarioName + "_testListIter1", testListIter(scenario, 1, ArrayList<ListTester.IterAction>(), Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testListIterHasNext", testListIterHasNext(scenario, null, ArrayList<ListTester.IterAction>(), Result.False))
+            printTest(scenarioName + "_testListIterNext", testListIterNext(scenario, null, ArrayList<ListTester.IterAction>(), null, Result.NoSuchElement))
+            printTest(scenarioName + "_testListIterRemove", testListIterRemove(scenario, null, ArrayList<ListTester.IterAction>(), Result.IllegalState))
+            printTest(scenarioName + "_testListIterHasPrevious", testListIterHasPrevious(scenario, null, ArrayList<ListTester.IterAction>(), Result.False))
+            printTest(scenarioName + "_testListIterPrevious", testListIterPrevious(scenario, null, ArrayList<ListTester.IterAction>(), null, Result.NoSuchElement))
+            printTest(scenarioName + "_testListIterAdd", testListIterAdd(scenario, null, ArrayList<ListTester.IterAction>(), ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testListIterSet", testListIterSet(scenario, null, ArrayList<ListTester.IterAction>(), ELEMENT_X, Result.IllegalState))
+            printTest(scenarioName + "_testListIterNextIndex", testListIterNextIndex(scenario, null, ArrayList<ListTester.IterAction>(), 0, Result.MatchingValue))
+            printTest(scenarioName + "_testListIter0NextIndex", testListIterNextIndex(scenario, 0, ArrayList<ListTester.IterAction>(), 0, Result.MatchingValue))
+            printTest(scenarioName + "_testListIterPreviousIndex", testListIterPreviousIndex(scenario, null, ArrayList<ListTester.IterAction>(),-1, Result.MatchingValue))
+            printTest(scenarioName + "_testListIter0PreviousIndex", testListIterPreviousIndex(scenario, 0, ArrayList<ListTester.IterAction>(), -1, Result.MatchingValue))
+
         }
         catch(e: Exception){
             print("***UNABLE TO RUN/COMPLETE %s*** \n $scenarioName TESTS\n")
@@ -135,6 +165,34 @@ class ListTester{
         val decimal = DecimalFormat("#.00")
         val percentPassedStr = decimal.format(percentPassed)
         print("Tests run so far: $totalRun, Passed: $passes ($percentPassedStr%), Failed: $failures\n")
+    }
+
+    private fun doIterActions(iter: MutableIterator<Int?>, actions: ArrayList<IterAction>){
+        for (item in actions){
+            when (item){
+                IterAction.Next -> iter.next()
+                IterAction.HasNext -> iter.hasNext()
+                IterAction.Remove -> iter.remove()
+                else -> throw NoSuchMethodError()
+            }
+        }
+    }
+
+    private fun doListIterActions(iter: MutableListIterator<Int?>, actions: ArrayList<IterAction>){
+        var pass: Int
+        for (item in actions){
+            when (item){
+                IterAction.Next -> iter.next()
+                IterAction.HasNext -> iter.hasNext()
+                IterAction.Remove -> iter.remove()
+                IterAction.NextIndex -> iter.nextIndex()
+                IterAction.HasPrevious -> iter.hasPrevious()
+                IterAction.Add -> pass = 0
+                IterAction.Previous -> iter.previous()
+                IterAction.PreviousIndex -> iter.previousIndex()
+                IterAction.Set -> pass = 0
+            }
+        }
     }
 
     private fun testRemoveFirst(listToBuild: () -> IndexedUnsortedList<Int?>, expectedElement: Int?, expectedResult: Result) : Boolean{
@@ -605,5 +663,573 @@ class ListTester{
         return result == expectedResult
     }
 
+    private fun testIter(listToBuild: () -> IndexedUnsortedList<Int?>, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it = list.iterator()
+            result = Result.NoException;
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIter")
 
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testIterHasNext(listToBuild: () -> IndexedUnsortedList<Int?>, performIterActions: ArrayList<IterAction>,
+                                expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            var it = list.iterator()
+            doIterActions(it, performIterActions)
+
+            if (it.hasNext()){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testIterNext(listToBuild: () -> IndexedUnsortedList<Int?>, performIterActions: ArrayList<IterAction>,
+                             expectedValue: Int?, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it = list.iterator()
+            doIterActions(it, performIterActions)
+
+            val retVal = it.next()
+
+            if (retVal!!.equals(expectedValue)){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+        }
+        catch(e: NoSuchElementException){
+            result = Result.NoSuchElement
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testIterRemove(listToBuild: () -> IndexedUnsortedList<Int?>, performIterActions: ArrayList<IterAction>,
+                               expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it = list.iterator()
+            doIterActions(it, performIterActions)
+
+            it.remove()
+            result = Result.NoException
+        }
+        catch(e: IllegalStateException){
+            result = Result.IllegalState
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterRemove(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                               expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            it.remove()
+            result = Result.NoException
+        }
+        catch(e: IllegalStateException){
+            result = Result.IllegalState
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIter(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                   expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            result = Result.NoException
+        }
+        catch(e: IllegalStateException){
+            result = Result.IllegalState
+        }
+        catch(e: IndexOutOfBoundsException){
+            result = Result.IndexOutOfBounds
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterHastNext(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                             expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            if (it.hasNext()){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+
+            result = Result.NoException
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterNext(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                   expectedValue: Int?, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            val retVal = it.next()
+            if (retVal!!.equals(expectedValue)){
+                result = Result.MatchingValue
+            }
+            else{
+                result = Result.Fail
+            }
+        }
+        catch(e: NoSuchElementException){
+            result = Result.NoSuchElement
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterHastPrevious(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                     expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            if (it.hasPrevious()){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+
+            result = Result.NoException
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult
+    }
+
+    private fun testListIterPrevious(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                 expectedValue: Int?, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            val retVal = it.previous()
+            if (retVal!!.equals(expectedValue)){
+                result = Result.MatchingValue
+            }
+            else{
+                result = Result.Fail
+            }
+        }
+        catch(e: NoSuchElementException){
+            result = Result.NoSuchElement
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterAdd(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                     element: Int?, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            it.add(element)
+            result = Result.NoException
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterSet(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                element: Int?, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            it.set(element)
+            result = Result.NoException
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch(e: IllegalStateException){
+            result = Result.IllegalState
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterNextIndex(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                expectedIndex: Int, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            val idx = it.nextIndex()
+            if (idx == expectedIndex){
+                result = Result.MatchingValue
+            }
+            else{
+                result = Result.Fail
+            }
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterPreviousIndex(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                      expectedIndex: Int, expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            val idx = it.previousIndex()
+            if (idx == expectedIndex){
+                result = Result.MatchingValue
+            }
+            else{
+                result = Result.Fail
+            }
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterHasNext(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                          expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            if (it.hasNext()){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
+
+    private fun testListIterHasPrevious(listToBuild: () -> IndexedUnsortedList<Int?>, startingIndex: Int?, performIterActions: ArrayList<IterAction>,
+                                    expectedResult: Result) : Boolean {
+        var result: Result
+        try {
+            var list = listToBuild()
+            val it: MutableListIterator<Int?>
+            if (startingIndex == null) {
+                it = list.listIterator()
+            }
+            else{
+                it = list.listIterator(startingIndex)
+            }
+            doListIterActions(it, performIterActions)
+
+            if (it.hasPrevious()){
+                result = Result.True
+            }
+            else{
+                result = Result.False
+            }
+        }
+        catch(e: ConcurrentModificationException){
+            result = Result.ConcurrentModification
+        }
+        catch (e: Exception) {
+            val sb = StringBuilder()
+            sb.append(e.toString())
+            sb.append(" caught unexpected ")
+            sb.append(e.printStackTrace())
+            sb.append("\n")
+            sb.append("testIterHasNext")
+
+            result = Result.UnexpectedException
+        }
+        return result == expectedResult;
+    }
 }
