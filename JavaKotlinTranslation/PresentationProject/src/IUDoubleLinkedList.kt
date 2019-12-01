@@ -151,7 +151,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         return retVal
     }
 
-    override fun remove(element: T): T? {
+    override fun remove(element: T?): T? {
         if (isEmpty()){
             throw NoSuchElementException()
         }
@@ -187,14 +187,14 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         return current.getNodeElement()
     }
 
-    override fun remove(index: Int): T? {
+    override fun removeAt(index: Int): T? {
         if (index < 0 || index >= size){
             throw IndexOutOfBoundsException()
         }
 
         var current = head
 
-        for (i in 0..index){
+        for (i in 0 until index){
             current = current?.getNextNode()
         }
 
@@ -237,11 +237,11 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
 
     override fun get(index: Int): T? {
         if (index < 0 || index >= size){
-            throw NoSuchElementException()
+            throw IndexOutOfBoundsException()
         }
 
         var current = head
-        for (i in 0..index){
+        for (i in 0 until index){
             current = current?.getNextNode()
         }
 
@@ -297,7 +297,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
         var current = head
 
         sb.append("[")
-        for (i in 0..size){
+        for (i in 0 until size){
             sb.append(current?.getNodeElement().toString())
             if (current != tail){
                 sb.append(", ")
