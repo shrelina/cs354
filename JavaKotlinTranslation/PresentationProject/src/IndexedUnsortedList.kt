@@ -6,8 +6,8 @@ interface IndexedUnsortedList<T> : Iterable<T>{
     public fun add(index: Int, element: T)
     public fun removeFirst(): T?
     public fun removeLast(): T?
-    public fun remove(element: T): T?
-    public fun remove(index: Int): T?
+    public fun remove(element: T?): T?
+    public fun removeAt(index: Int): T?
     public fun set(index: Int, element: T)
     public fun get(index: Int): T?
     public fun indexOf(element: T): Int
