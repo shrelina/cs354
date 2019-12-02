@@ -56,12 +56,12 @@ class ListTester{
     }
 
     fun runTests(){
-        val LIST_A = { ELEMENT_A }
-        val STRING_A = "A"
-        val LIST_B = { ELEMENT_B}
-        val STRING_B = "B"
-
+        //newly constructed
         testEmptyList(::newList, "newList")
+
+        //empty to 1-element list
+        testSingleElementList(::emptyList_addToFrontA_A, "emptyList_addToFrontA_A")
+        testSingleElementList(::emptyList_addToRearA_A, "emptyList_addToRearA_A")
     }
 
     private fun testEmptyList(scenario: () -> IndexedUnsortedList<Int?>, scenarioName: String){
@@ -126,8 +126,115 @@ class ListTester{
         }
     }
 
+    private fun testSingleElementList(scenario: () -> IndexedUnsortedList<Int?>, scenarioName: String){
+        print("\nSCENARIO: $scenarioName\n\n")
+
+        try {
+            printTest(scenarioName + "_testRemoveFirst", testRemoveFirst(scenario, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testRemoveLast", testRemoveLast(scenario, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testRemoveX", testRemoveElement(scenario, ELEMENT_X, Result.NoSuchElement))
+            printTest(scenarioName + "_testRemoveA", testRemoveElement(scenario, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testFirst", testFirst(scenario, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testLast", testLast(scenario, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testContainsX", testContains(scenario, ELEMENT_X, Result.False))
+            printTest(scenarioName + "_testIsEmpty", testIsEmpty(scenario, Result.False))
+            printTest(scenarioName + "_testSize", testSize(scenario, 1))
+            printTest(scenarioName + "_testToString", testToString(scenario, Result.ValidString))
+            printTest(scenarioName + "_testAddToFront", testAddToFront(scenario, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testAddToRear", testAddToRear(scenario, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testAddAfterX", testAddAfter(scenario, ELEMENT_X, ELEMENT_Z, Result.NoSuchElement))
+            printTest(scenarioName + "_testAddAtIndexNeg1", testAddAtIndex(scenario, -1, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testAddAtIndex0", testAddAtIndex(scenario, 0, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testAddAtIndex1", testAddAtIndex(scenario, 1, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testAddAtIndex2", testAddAtIndex(scenario, 2, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testSetNeg1", testSet(scenario, -1, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testSet0", testSet(scenario, 0, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testSet1", testSet(scenario, 1, ELEMENT_X, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testAddX", testAdd(scenario, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testGetNeg1", testGet(scenario, -1, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testGet0", testGet(scenario, 0, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testGet1", testGet(scenario, 1, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testIndexOfX", testIndexOf(scenario, ELEMENT_X, -1))
+            printTest(scenarioName + "_testIndexOfA", testIndexOf(scenario, ELEMENT_A, 0))
+            printTest(scenarioName + "_testRemoveAtNeg1", testRemoveAt(scenario, -1, null, Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testRemoveAt0", testRemoveAt(scenario, 0, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testRemoveAt1", testRemoveAt(scenario, 1, null, Result.IndexOutOfBounds))
+
+            // Iterator
+            printTest(scenarioName + "_testIter", testIter(scenario, Result.NoException))
+            printTest(scenarioName + "_testIterHasNext", testIterHasNext(scenario, ArrayList<ListTester.IterAction>(), Result.True))
+            printTest(scenarioName + "_testIterNext", testIterNext(scenario, ArrayList<ListTester.IterAction>(), ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testIterRemove", testIterRemove(scenario, ArrayList<ListTester.IterAction>(), Result.IllegalState))
+            val iterNext = ArrayList<IterAction>()
+            iterNext.add(IterAction.Next)
+            printTest(scenarioName + "iterNext_testIterHasNext", testIterHasNext(scenario, iterNext, Result.False))
+            printTest(scenarioName + "iterNext_testIterNext", testIterNext(scenario, iterNext, null, Result.NoSuchElement))
+            printTest(scenarioName + "iterNext_testIterRemove", testIterRemove(scenario, iterNext, Result.NoException))
+            val iterNextRemove = ArrayList<IterAction>()
+            iterNextRemove.add(IterAction.Next)
+            iterNextRemove.add(IterAction.Remove)
+            printTest(scenarioName + "iterNext_testIterHasNext", testIterHasNext(scenario, iterNextRemove, Result.False))
+            printTest(scenarioName + "iterNext_testIterNext", testIterNext(scenario, iterNextRemove, null, Result.NoSuchElement))
+            printTest(scenarioName + "iterNext_testIterRemove", testIterRemove(scenario, iterNextRemove, Result.IllegalState))
+
+
+            //ListIterator
+            printTest(scenarioName + "_testListIter", testListIter(scenario, null, ArrayList<ListTester.IterAction>(), Result.NoException));
+            printTest(scenarioName + "_testListIterNeg1", testListIter(scenario, -1, ArrayList<ListTester.IterAction>(), Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testListIter0", testListIter(scenario, 0, ArrayList<ListTester.IterAction>(), Result.NoException))
+            printTest(scenarioName + "_testListIter1", testListIter(scenario, 1, ArrayList<ListTester.IterAction>(), Result.NoException))
+            printTest(scenarioName + "_testListIter2", testListIter(scenario, 2, ArrayList<ListTester.IterAction>(), Result.IndexOutOfBounds))
+            printTest(scenarioName + "_testListIterHasNext", testListIterHasNext(scenario, null, ArrayList<ListTester.IterAction>(), Result.True))
+            printTest(scenarioName + "_testListIterNext", testListIterNext(scenario, null, ArrayList<ListTester.IterAction>(), ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "_testListIterRemove", testListIterRemove(scenario, null, ArrayList<ListTester.IterAction>(), Result.IllegalState))
+            printTest(scenarioName + "_testListIterHasPrevious", testListIterHasPrevious(scenario, null, ArrayList<ListTester.IterAction>(), Result.False))
+            printTest(scenarioName + "_testListIterPrevious", testListIterPrevious(scenario, null, ArrayList<ListTester.IterAction>(), null, Result.NoSuchElement))
+            printTest(scenarioName + "_testListIterAdd", testListIterAdd(scenario, null, ArrayList<ListTester.IterAction>(), ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "_testListIterSet", testListIterSet(scenario, null, ArrayList<ListTester.IterAction>(), ELEMENT_X, Result.IllegalState))
+            printTest(scenarioName + "_testListIterNextIndex", testListIterNextIndex(scenario, null, ArrayList<ListTester.IterAction>(), 0, Result.MatchingValue))
+            printTest(scenarioName + "_testListIter0NextIndex", testListIterNextIndex(scenario, 0, ArrayList<ListTester.IterAction>(), 0, Result.MatchingValue))
+            printTest(scenarioName + "_testListIterPreviousIndex", testListIterPreviousIndex(scenario, null, ArrayList<ListTester.IterAction>(),-1, Result.MatchingValue))
+            printTest(scenarioName + "_testListIter0PreviousIndex", testListIterPreviousIndex(scenario, 0, ArrayList<ListTester.IterAction>(), -1, Result.MatchingValue))
+
+            val listIterNext = iterNext
+            printTest(scenarioName + "listIterNext_testListIterHasNext", testListIterHasNext(scenario, null, listIterNext, Result.False))
+            printTest(scenarioName + "listIterNext_testListIterNext", testListIterNext(scenario, null, listIterNext, ELEMENT_A, Result.NoSuchElement))
+            printTest(scenarioName + "listIterNext_testListIterRemove", testListIterRemove(scenario, null, listIterNext, Result.NoException))
+            printTest(scenarioName + "listIterNext_testListIterHasPrevious", testListIterHasPrevious(scenario, null, listIterNext, Result.True))
+            printTest(scenarioName + "listIterNext_testListIterPrevious", testListIterPrevious(scenario, null, listIterNext, ELEMENT_A, Result.MatchingValue))
+            printTest(scenarioName + "listIterNext_testListIterAdd", testListIterAdd(scenario, null, listIterNext, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "listIterNext_testListIterSet", testListIterSet(scenario, null, listIterNext, ELEMENT_X, Result.NoException))
+            printTest(scenarioName + "listIterNext_testListIterNextIndex", testListIterNextIndex(scenario, null, listIterNext, 1, Result.MatchingValue))
+            printTest(scenarioName + "listIterNext_testListIter0NextIndex", testListIterNextIndex(scenario, 0, listIterNext, 1, Result.MatchingValue))
+            printTest(scenarioName + "listIterNext_testListIterPreviousIndex", testListIterPreviousIndex(scenario, null, listIterNext,0, Result.MatchingValue))
+            printTest(scenarioName + "listIterNext_testListIter0PreviousIndex", testListIterPreviousIndex(scenario, 0, listIterNext, 0, Result.MatchingValue))
+
+
+        }
+        catch(e: Exception){
+            print("***UNABLE TO RUN/COMPLETE %s*** \n $scenarioName TESTS\n")
+        }
+        finally{
+            if (printSectionSummaries){
+                printSectionSummary()
+            }
+        }
+    }
+
     private fun newList(): IndexedUnsortedList<Int?>{
         return IUDoubleLinkedList<Int?>(null, null, 0)
+    }
+
+    private fun emptyList_addToFrontA_A(): IndexedUnsortedList<Int?>{
+        var retVal = newList()
+        retVal.addToFront(ELEMENT_A)
+        return retVal
+    }
+
+    private fun emptyList_addToRearA_A(): IndexedUnsortedList<Int?>{
+        var retVal = newList()
+        retVal.addToRear(ELEMENT_A)
+        return retVal
     }
 
     private fun printTest(testDesc: String, result: Boolean){
@@ -725,10 +832,10 @@ class ListTester{
             val retVal = it.next()
 
             if (retVal!!.equals(expectedValue)){
-                result = Result.True
+                result = Result.MatchingValue
             }
             else{
-                result = Result.False
+                result = Result.Fail
             }
         }
         catch(e: NoSuchElementException){
