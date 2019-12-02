@@ -356,7 +356,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
 
             if (nextNode == null){
                 var current = head
-                for (i in 0..nextIndex){
+                for (i in 1 until nextIndex){
                     current = current?.getNextNode()
                 }
 
@@ -398,7 +398,7 @@ class IUDoubleLinkedList<T> (var head: LinearNode<T>?, var tail: LinearNode<T>?,
 
             if (nextNode == null){
                 var current = head
-                for (i in 0..nextIndex){
+                for (i in 1 until nextIndex){
                     current = current?.getNextNode()
                 }
 
